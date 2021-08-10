@@ -8,6 +8,20 @@ class Game{
         this.activePhrase = null;
     }
     startGame(){
+        if(this.phrase.phraseSection.children.length > 0) {
+            this.phrase.phraseSection.children.forEach(child => phraseSection.unshift(child))
+        }
+        const keyboardButtons = document.querySelectorAll('.keyrow button');
+        if (keyboardButtons.classList.contains('chosen')){
+            keyboardButtons.classList.remove('chosen');
+            keyboardButtons.classList.add('key');
+        } else if (keyboardButtons.classList.contains('wrong')){
+            keyboardButtons.classList.remove('wrong');
+            keyboardButtons.classList.add('key');
+        }
+        this.lives.forEach(life => {
+            return life.firstElementChild.setAttribute('src', "images/liveHeart.png")
+        })
         document.querySelector('#overlay').style.display = 'none';
         this.activePhrase = this.getRandomPhrase;
         this.phrase.addPhraseToDisplay(this.activePhrase);
