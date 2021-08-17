@@ -1,15 +1,15 @@
 /* Treehouse FSJS Techdegree
  * Project 4 - OOP Game App
  * Game.js */
-class Game{
+class Game {
     constructor(){
         this.missed = 0;
-        this.phrase = [];
+        this.phrases = this.createPhrases();
         this.activePhrase = null;
     }
     startGame(){
-        if(this.phrase.phraseSection.children.length > 0) {
-            this.phrase.phraseSection.children.forEach(child => phraseSection.unshift(child))
+        if(this.phrases.phraseSection.children.length > 0) {
+            this.phrases.phraseSection.children.forEach(child => phraseSection.unshift(child))
         }
         const keyboardButtons = document.querySelectorAll('.keyrow button');
         if (keyboardButtons.classList.contains('chosen')){
@@ -24,20 +24,35 @@ class Game{
         })
         document.querySelector('#overlay').style.display = 'none';
         this.activePhrase = this.getRandomPhrase;
-        this.phrase.addPhraseToDisplay(this.activePhrase);
+        this.phrases.addPhraseToDisplay(this.activePhrase);
     }
     get getRandomPhrase(){
-        return this.phrase[Math.floor(Math.random() * this.phrase.length)];
+        return this.phrases[Math.floor(Math.random() * this.phrases.length)];
+    }
+    /**
+* Creates phrases for use in game
+* @return {array} An array of phrases that could be used in the game
+*/
+    createPhrases(){
+        this.phrases = [];
+        for (let i = 0; i < 5; i++){
+            
+            const salutations = ['Hello', 'Greetings', 'Goodbye', 'Adios', 'Peace'];
+            const people = ['Officer', 'Journeyman', 'Professor', 'Doctor', 'Brother'];
+            const aPhrase = new Phrase(`${salutations[i]} ${people[i]}`);
+            this.phrases.push(aPhrase);
+        }
+       return this.phrases;
     }
     handleInteraction(){
         qwerty.addEventListener('click', (e)=>{
             e.target.disabled = true;
-            if(e.target.value !== this.phrase.checkLetter){
+            if(e.target.value !== this.phrases.checkLetter){
                 e.target.classList.add('wrong');
                 removeLife();
             } else {
                 e.target.classList.add('chosen');
-                this.phrase.showMatchedLetter();
+                this.phrases.showMatchedLetter();
                 if(this.checkForWin()){
                     gameOver();
                 }
@@ -47,7 +62,7 @@ class Game{
     removeLife(){
         const scoreBoard = document.querySelector('#scoreboard');
         const lives = scoreBoard.children;
-        if(!this.phrase.checkLetter){
+        if(!this.phrases.checkLetter){
             const lostHeart = lives.children.find( image => image.src = "images/liveHeart.png" );
             lostHeart.setAttribute('src', 'images/lostHeart.png');
             this.missed ++;
@@ -79,3 +94,4 @@ class Game{
         }
     }
 }
+
