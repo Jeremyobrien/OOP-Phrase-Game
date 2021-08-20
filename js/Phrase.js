@@ -8,12 +8,22 @@ class Phrase {
     }
     
     addPhraseToDisplay(){
-        const phraseSection =  document.querySelector("#phrase");
-        let space = document.createElement('li');
+        const phraseList = document.querySelector('ul');
         const phrase = this.phrase.split('');
-        phrase.map(letter => space = letter);
-        phraseSection.push(phrase);
-        console.log(phraseSection);
+        for(let i =0; i < phrase.length; i++){
+            const listElement = document.createElement('li');
+            if (/[a-z]/.test(phrase[i])) {
+                listElement.appendChild(document.createTextNode(phrase[i]));
+                listElement.classList.add('hide');
+                listElement.classList.add('letter')
+                listElement.classList.add(`${phrase[i]}`);
+                phraseList.appendChild(listElement);
+            } else if (phrase[i] === ' ') {
+                listElement.appendChild(document.createTextNode(phrase[i]));
+                listElement.classList.add('space')
+                phraseList.appendChild(listElement);
+            }
+        };   
     }
     checkLetter(){
         const qwerty =  document.querySelector('#qwerty');
@@ -25,5 +35,4 @@ class Phrase {
     showMatchedLetter(){
         matches.forEach(match => match.style.display.hide = false); 
     }
-    
 }
