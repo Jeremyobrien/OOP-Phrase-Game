@@ -5,26 +5,29 @@ class Game {
     constructor(){
         this.missed = 0;
         this.phrases = this.createPhrases();
-        this.activePhrase = null;
+        this.activePhrase = this.getRandomPhrase();
     }
+    /**
+* Begins game by selecting a random phrase and displaying it to user
+*/
     startGame(){
-        if(this.phrases.phraseSection.children.length > 0) {
-            this.phrases.phraseSection.children.forEach(child => phraseSection.unshift(child))
-        }
-        const keyboardButtons = document.querySelectorAll('.keyrow button');
-        if (keyboardButtons.classList.contains('chosen')){
-            keyboardButtons.classList.remove('chosen');
-            keyboardButtons.classList.add('key');
-        } else if (keyboardButtons.classList.contains('wrong')){
-            keyboardButtons.classList.remove('wrong');
-            keyboardButtons.classList.add('key');
-        }
-        this.lives.forEach(life => {
-            return life.firstElementChild.setAttribute('src', "images/liveHeart.png")
-        })
         document.querySelector('#overlay').style.display = 'none';
-        this.activePhrase = this.getRandomPhrase;
-        this.phrases.addPhraseToDisplay(this.activePhrase);
+        this.activePhrase.addPhraseToDisplay();
+        // if(this.phrases.phraseSection.children.length > 0) {
+        //     this.phrases.phraseSection.children.forEach(child => phraseSection.unshift(child))
+        // }
+        // const keyboardButtons = document.querySelectorAll('.keyrow button');
+        // if (keyboardButtons.classList.contains('chosen')){
+        //     keyboardButtons.classList.remove('chosen');
+        //     keyboardButtons.classList.add('key');
+        // } else if (keyboardButtons.classList.contains('wrong')){
+        //     keyboardButtons.classList.remove('wrong');
+        //     keyboardButtons.classList.add('key');
+        // }
+        // this.lives.forEach(life => {
+        //     return life.firstElementChild.setAttribute('src', "images/liveHeart.png")
+        // })
+        
     }
     /**
 * Selects random phrase from phrases property
