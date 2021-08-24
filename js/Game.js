@@ -10,24 +10,9 @@ class Game {
     /**
 * Begins game by selecting a random phrase and displaying it to user
 */
-    startGame(){
+    startGame(){    
         document.querySelector('#overlay').style.display = 'none';
         this.activePhrase.addPhraseToDisplay();
-        // if(this.phrases.phraseSection.children.length > 0) {
-        //     this.phrases.phraseSection.children.forEach(child => phraseSection.unshift(child))
-        // }
-        // const keyboardButtons = document.querySelectorAll('.keyrow button');
-        // if (keyboardButtons.classList.contains('chosen')){
-        //     keyboardButtons.classList.remove('chosen');
-        //     keyboardButtons.classList.add('key');
-        // } else if (keyboardButtons.classList.contains('wrong')){
-        //     keyboardButtons.classList.remove('wrong');
-        //     keyboardButtons.classList.add('key');
-        // }
-        // this.lives.forEach(life => {
-        //     return life.firstElementChild.setAttribute('src', "images/liveHeart.png")
-        // })
-        
     }
     /**
 * Selects random phrase from phrases property
@@ -51,6 +36,10 @@ class Game {
         }
        return this.phrases;
     }
+    /**
+* Handles onscreen keyboard button clicks
+* @param (HTMLButtonElement) button - The clicked button element
+*/
     handleInteraction(button){
         button.disabled = true;
             if(!this.activePhrase.checkLetter(button.textContent)){
@@ -60,7 +49,7 @@ class Game {
                 button.classList.add('chosen');
                 this.activePhrase.showMatchedLetter(button.textContent);
                 if(this.checkForWin()){
-                    this.gameOver();
+                    this.gameOver(true);
                 }
             }
         }
@@ -75,10 +64,14 @@ class Game {
         life.setAttribute('src', 'images/lostHeart.png');
         this.missed ++;
         if(this.missed === 5){
-            this.gameOver();
+            this.gameOver(false);
             }
         }
-
+/**
+* Checks for winning move
+* @return {boolean} True if game has been won, false if game wasn't
+won
+*/
     checkForWin(){
            const letters = document.querySelector('#phrase ul').children;
            let guessedLetters = 0;
@@ -93,17 +86,20 @@ class Game {
                 return true;
             }
     }
-    gameOver(){
-       const overlay = document.querySelector('#overlay').style.display = 'block';
-       const message = document.querySelector('#game-over-message');
-        if(this.checkForWin){
-            message.textContent = 'Congratulations, you won!';
-            overlay.classList.remove('start');
-            overlay.classList.add('win');
-        } else {
-           message.textContent = 'Game over..Play again?';
-            overlay.classList.remove('start');
-            overlay.classList.add('lose');
-        }
+    /**
+* Displays game over message
+* @param {boolean} gameWon - Whether or not the user won the game
+*/
+    gameOver(gameWon){
+        const mainContainer = document.querySelector('.main-container');
+        const message = document.querySelector('#game-over-message');
+        document.querySelector('#overlay').style.display = 'block';
+        if(gameWon === true){
+                message.textContent = 'Congratulations, you won!';
+                mainContainer.firstElementChild.classList.replace('start', 'win');
+            } else if (gameWon === false) {
+                message.textContent = 'Game over..Play again?';
+                mainContainer.firstElementChild.classList.replace('start', 'lose');
+            }
     }
 }
