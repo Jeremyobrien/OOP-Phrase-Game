@@ -51,41 +51,47 @@ class Game {
         }
        return this.phrases;
     }
-    handleInteraction(){
-        qwerty.addEventListener('click', (e)=>{
-            e.target.disabled = true;
-            if(e.target.value !== this.phrases.checkLetter){
-                e.target.classList.add('wrong');
-                removeLife();
+    handleInteraction(button){
+        button.disabled = true;
+            if(!this.activePhrase.checkLetter(button.textContent)){
+                button.classList.add('wrong');
+                this.removeLife();
             } else {
-                e.target.classList.add('chosen');
-                this.phrases.showMatchedLetter();
+                button.classList.add('chosen');
+                this.activePhrase.showMatchedLetter(button.textContent);
                 if(this.checkForWin()){
-                    gameOver();
+                    this.gameOver();
                 }
             }
-        })
-    }
+        }
+    
+     /**
+* Increases the value of the missed property
+* Removes a life from the scoreboard
+* Checks if player has remaining lives and ends game if player is out
+*/   
     removeLife(){
-        const scoreBoard = document.querySelector('#scoreboard');
-        const lives = scoreBoard.children;
-        if(!this.phrases.checkLetter){
-            const lostHeart = lives.children.find( image => image.src = "images/liveHeart.png" );
-            lostHeart.setAttribute('src', 'images/lostHeart.png');
-            this.missed ++;
-            if(this.missed === 5){
-                gameOver();
+        const life = document.querySelector('ol img[src="images/liveHeart.png"]');
+        life.setAttribute('src', 'images/lostHeart.png');
+        this.missed ++;
+        if(this.missed === 5){
+            this.gameOver();
             }
         }
-    }
+
     checkForWin(){
-        this.activePhrase.forEach(letter =>{
-            if (!letter.classList.contains('chosen')){
-                return false;
-            } else {
+           const letters = document.querySelector('#phrase ul').children;
+           let guessedLetters = 0;
+            for(let i = 0; i < letters.length; i++){
+                if (letters[i].classList.contains('hide')){
+                    return false;
+                } else if (letters[i].classList.contains('space') || letters[i].classList.contains('show')){
+                    guessedLetters++;
+                }
+            }
+            if (guessedLetters === letters.length){
                 return true;
             }
-        })
     }
     gameOver(){
        const overlay = document.querySelector('#overlay').style.display = 'block';
@@ -95,10 +101,9 @@ class Game {
             overlay.classList.remove('start');
             overlay.classList.add('win');
         } else {
-            this.textContent = 'Game over..Play again?';
+           message.textContent = 'Game over..Play again?';
             overlay.classList.remove('start');
             overlay.classList.add('lose');
         }
     }
 }
-

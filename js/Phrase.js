@@ -8,7 +8,7 @@ class Phrase {
     }
     
     addPhraseToDisplay(){
-        const phraseList = document.querySelector('ul');
+        const phraseList = document.querySelector('#phrase ul');
         const phrase = this.phrase.split('');
         for(let i =0; i < phrase.length; i++){
             const listElement = document.createElement('li');
@@ -25,14 +25,27 @@ class Phrase {
             }
         };   
     }
-    checkLetter(){
-        const qwerty =  document.querySelector('#qwerty');
-        qwerty.addEventListener('click', (e)=>{
-           const matches = this.phrase.filter(letter => letter === e.target.value ? true : false);
-           return matches;
-        })
+    /**
+* Checks if passed letter is in phrase
+* @param (string) letter - Letter to check
+*/
+        checkLetter(letter){
+            return this.phrase.includes(letter);
     }
-    showMatchedLetter(){
-        matches.forEach(match => match.style.display.hide = false); 
-    }
+
+    /**
+* Displays passed letter on screen after a match is found
+* @param (string) letter - Letter to display
+*/
+    showMatchedLetter(letter){ 
+     const matchedLetters = document.getElementsByClassName(letter);
+     for (let i = 0; i < matchedLetters.length; i++){
+         const matchedLetter = matchedLetters[i];
+         matchedLetter.classList.remove('hide');
+         matchedLetter.classList.add('show');
+        }
+                
+  }
+    
 }
+
