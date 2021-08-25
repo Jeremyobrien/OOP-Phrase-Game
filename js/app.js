@@ -2,14 +2,15 @@
  * Project 4 - OOP Game App
  * app.js */
 
-
+//Global variables
 const startButton = document.querySelector('#btn__reset');
 let game = {};
-const phraseList = document.querySelector('#phrase ul');
+const partsOfPhrase = document.querySelector('#phrase ul');
 const lives = document.querySelectorAll('.tries img');
 const mainContainer = document.querySelector('.main-container');
+//Resets gameboard and starts game
 startButton.addEventListener('click', ()=>{
-    phraseList.innerHTML = '';
+    partsOfPhrase.innerHTML = '';
     for(let i = 0; i < keys.length; i++){
         keys[i].disabled = false;
         if(keys[i].classList.contains('chosen')){
@@ -26,7 +27,7 @@ startButton.addEventListener('click', ()=>{
     game = new Game();
     game.startGame();
 });
-
+//Listens for keyboard clicks and calls handleInteration()
 const qwerty = document.querySelector('#qwerty');
 const keys = document.querySelectorAll('.keyrow .key');
 qwerty.addEventListener('click', (e)=>{

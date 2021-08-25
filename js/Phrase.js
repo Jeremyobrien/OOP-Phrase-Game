@@ -2,11 +2,12 @@
  * Project 4 - OOP Game App
  * Phrase.js */
 
+//Phrase class constructor with associated methods
 class Phrase {
     constructor(phrase){
         this.phrase = phrase.toLowerCase();
     }
-    
+    //adds phrase to gameboard
     addPhraseToDisplay(){
         const phraseList = document.querySelector('#phrase ul');
         const phrase = this.phrase.split('');
@@ -38,7 +39,7 @@ class Phrase {
 * @param (string) letter - Letter to display
 */
     showMatchedLetter(letter){ 
-     const matchedLetters = document.getElementsByClassName(letter);
+     const matchedLetters = document.querySelectorAll(`.${letter}`);
      for (let i = 0; i < matchedLetters.length; i++){
          const matchedLetter = matchedLetters[i];
          matchedLetter.classList.remove('hide');

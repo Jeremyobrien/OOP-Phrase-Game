@@ -1,18 +1,22 @@
 /* Treehouse FSJS Techdegree
  * Project 4 - OOP Game App
  * Game.js */
+
+//Game class constructor and methods
 class Game {
     constructor(){
         this.missed = 0;
         this.phrases = this.createPhrases();
-        this.activePhrase = this.getRandomPhrase();
+        this.activePhrase = null;
     }
     /**
 * Begins game by selecting a random phrase and displaying it to user
 */
     startGame(){    
         document.querySelector('#overlay').style.display = 'none';
-        this.activePhrase.addPhraseToDisplay();
+        const gamePhrase =  this.getRandomPhrase();
+        gamePhrase.addPhraseToDisplay();
+        this.activePhrase = gamePhrase;     
     }
     /**
 * Selects random phrase from phrases property
@@ -28,9 +32,8 @@ class Game {
     createPhrases(){
         this.phrases = [];
         for (let i = 0; i < 5; i++){
-            
-            const salutations = ['Hello', 'Greetings', 'Goodbye', 'Adios', 'Peace'];
-            const people = ['Officer', 'Journeyman', 'Professor', 'Doctor', 'Brother'];
+            const salutations = ['Hello', 'Greetings', 'Farewell', 'Seeya', 'Peace'];
+            const people = ['Officer', 'Sir', 'Professor', 'Doc', 'Brother'];
             const aPhrase = new Phrase(`${salutations[i]} ${people[i]}`);
             this.phrases.push(aPhrase);
         }
