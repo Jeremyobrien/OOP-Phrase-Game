@@ -10,6 +10,32 @@ const lives = document.querySelectorAll('.tries img');
 const mainContainer = document.querySelector('.main-container');
 //Resets gameboard and starts game
 startButton.addEventListener('click', ()=>{
+   reset();
+});
+//Listens for virtual-keyboard clicks and calls handleInteration()
+const qwerty = document.querySelector('#qwerty');
+const keys = document.querySelectorAll('.keyrow .key');
+qwerty.addEventListener('click', (e)=>{
+    for(let i = 0; i < keys.length; i++){
+        if(e.target === keys[i]){
+            game.handleInteraction(keys[i]);
+        }
+    }   
+})
+//Listener that handles keyboard events
+document.addEventListener('keyup', (e)=>{
+    for(let i = 0; i < keys.length; i++){
+        if(e.key === keys[i].textContent){
+            game.handleInteraction(keys[i]);
+        }
+    }
+    if(e.key === 'Enter'){
+        reset();
+    }
+    
+})
+//Helper Function that starts a new gamedsfe
+const reset = ()=>{
     partsOfPhrase.innerHTML = '';
     for(let i = 0; i < keys.length; i++){
         keys[i].disabled = false;
@@ -26,14 +52,4 @@ startButton.addEventListener('click', ()=>{
     mainContainer.firstElementChild.classList.add('start');
     game = new Game();
     game.startGame();
-});
-//Listens for keyboard clicks and calls handleInteration()
-const qwerty = document.querySelector('#qwerty');
-const keys = document.querySelectorAll('.keyrow .key');
-qwerty.addEventListener('click', (e)=>{
-    for(let i = 0; i < keys.length; i++){
-        if(e.target === keys[i]){
-            game.handleInteraction(keys[i]);
-        }
-    }   
-})
+}
