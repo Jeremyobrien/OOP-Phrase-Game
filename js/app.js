@@ -34,7 +34,7 @@ document.addEventListener('keyup', (e)=>{
     }
     
 })
-//Helper Function that starts a new gamedsfe
+//Helper Function that starts a new game
 const reset = ()=>{
     partsOfPhrase.innerHTML = '';
     for(let i = 0; i < keys.length; i++){

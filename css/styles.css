@@ -89,7 +89,6 @@ button {
   color: #3a3f58;
 }
 
-
 /* Phrase */
 
 .letter {
@@ -101,6 +100,7 @@ button {
   color: transparent;
   background: var(--color-neutral-light);
   border-radius: 5px;
+  box-shadow: 5px 5px grey;
 }
 
 .space {
@@ -124,6 +124,10 @@ button {
 
 
 /* Keyboard */
+
+.key{
+  box-shadow: 5px 5px grey;
+}
 
 .keyrow {
   display: flex;
@@ -158,7 +162,6 @@ button {
   border-bottom: solid 4px rgba(0, 0, 0, 0);
   border-right: solid 3px rgba(0, 0, 0, 0);
 }
-
 
 /* Overlay */
 
