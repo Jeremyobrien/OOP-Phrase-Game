@@ -1,2 +1,2 @@
 # OOP-Phrase-Game
- A phrase guessing game built with object-oriented programming principles.  To add depth to the gameboard, I gave box-shadow effects to the 'key' and 'letter' classes.
+A browser-based, word guessing game: "Phrase Hunter." This leverages JavaScript and OOP (Object-Oriented Programming) to select a random, hidden phrase. A player tries to guess the phrase by selecting individual letters from an onscreen keyboard. Can they guess the phrase before they run out of attempts?
